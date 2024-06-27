@@ -1,0 +1,12 @@
+#!/usr/bin/stap
+
+global mmap_calls
+global munmap_calls
+
+probe syscall.mmap2 {
+    printf("PID: %d, Proceso: %s, Llamada: mmap, Tamaño: %d, Fecha: %s\n", pid(), execname(), length, ctime(gettimeofday_s()))
+}
+
+probe syscall.munmap {
+    printf("PID: %d, Proceso: %s, Llamada: munmap, Tamaño: %d, Fecha: %s\n", pid(), execname(), length, ctime(gettimeofday_s()))
+}
